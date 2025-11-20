@@ -1,0 +1,84 @@
+/* src/components/Timetable.css */
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.timetable {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.calendar {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.task-form {
+  margin-bottom: 20px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-task-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #006edc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-task-button:hover {
+  background-color: #005bb5;
+}
+
+.task-list {
+  margin-top: 20px;
+}
+
+.task-item {
+  font-size: 12px;
+  background-color: #e3f2fd;
+  padding: 5px;
+  margin: 2px 0;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.task-item-large {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-content {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
