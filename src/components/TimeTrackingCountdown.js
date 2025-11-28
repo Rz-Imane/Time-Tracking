@@ -1,4 +1,3 @@
-// src/components/TimeTrackingCountdown.js
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
