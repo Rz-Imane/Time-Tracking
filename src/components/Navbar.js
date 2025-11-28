@@ -1,4 +1,3 @@
-// src/components/Navbar.js
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
