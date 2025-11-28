@@ -10,7 +10,6 @@ const ItemTypes = {
   TASK: 'task',
 };
 
-// --- Task block in the grid ---
 const Task = ({ task, onEditTask, onDeleteTask, isHovered, setHoveredTask }) => {
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.TASK,
@@ -76,7 +75,7 @@ const Task = ({ task, onEditTask, onDeleteTask, isHovered, setHoveredTask }) => 
       style={{
         height: `${height}px`,
         position: 'relative',
-        zIndex: 5, // keep card above hour lines
+        zIndex: 5, 
       }}
       onMouseEnter={() => setHoveredTask(task.id)}
       onMouseLeave={() => setHoveredTask(null)}
@@ -105,7 +104,6 @@ const Task = ({ task, onEditTask, onDeleteTask, isHovered, setHoveredTask }) => 
         </div>
       )}
 
-      {/* Bigger, offset resize handle that stays above grid lines */}
       <div
         className="absolute -bottom-1.5 -right-1.5 h-3.5 w-3.5 cursor-ns-resize rounded-full bg-slate-950/95 ring-2 ring-indigo-300/80 shadow-sm shadow-slate-900/80"
         onMouseDown={handleMouseDown}
@@ -115,7 +113,6 @@ const Task = ({ task, onEditTask, onDeleteTask, isHovered, setHoveredTask }) => 
   );
 };
 
-// --- One cell in the grid (for a given day+hour) ---
 const DayCell = ({
   date,
   hour,
@@ -141,7 +138,7 @@ const DayCell = ({
   const handleMouseLeave = () => setHoveredSlot(null);
 
   const dayOfWeek = date.getDay();
-  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6; // Sun or Sat
+  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6; 
 
   return (
     <div
@@ -169,7 +166,6 @@ const DayCell = ({
         />
       ))}
 
-      {/* Show +/- slots per 15 minutes, but hide only the ones already occupied */}
       {(showWeekends || !isWeekend) &&
         ['00', '15', '30', '45'].map((slot) => {
           const slotTime = `${hour}:${slot}`;
@@ -222,11 +218,10 @@ const DayCell = ({
   );
 };
 
-// Helper: get week days in order Mon..Sun (so Sat/Sun are always at the end)
 const getWeekDaysMondayFirst = (referenceDate) => {
   const d = new Date(referenceDate);
-  const day = d.getDay(); // 0 (Sun) - 6 (Sat)
-  const diffToMonday = day === 0 ? -6 : 1 - day; // if Sunday, go back 6 days; else subtract
+  const day = d.getDay(); 
+  const diffToMonday = day === 0 ? -6 : 1 - day; 
   const monday = new Date(d);
   monday.setDate(d.getDate() + diffToMonday);
 
@@ -418,8 +413,7 @@ const Timetable = () => {
     setDate(newDate);
   };
 
-  // --- Build week Mon..Sun, with weekends at the end ---
-  const weekDays = getWeekDaysMondayFirst(date); // [Mon, Tue, Wed, Thu, Fri, Sat, Sun]
+  const weekDays = getWeekDaysMondayFirst(date); 
 
   const weekView = weekDays.map((d) => ({
     date: d,
@@ -428,7 +422,6 @@ const Timetable = () => {
     ),
   }));
 
-  // Only hide Sat/Sun when showWeekends = false, but keep order Mon..Sun
   const visibleWeekView = weekView.filter(({ date: d }) =>
     showWeekends ? true : d.getDay() !== 0 && d.getDay() !== 6
   );
@@ -467,13 +460,11 @@ const Timetable = () => {
     month: 'short',
   })}`;
 
-  // Dynamic grid columns based on visible days
   const dayCount = visibleWeekView.length;
   const gridTemplate = {
     gridTemplateColumns: `80px repeat(${dayCount}, minmax(0, 1fr))`,
   };
 
-  // Outer card classes depending on theme
   const outerCardClass =
     'rounded-3xl border p-[1px] shadow-2xl backdrop-blur-xl ' +
     (isDark
@@ -486,16 +477,13 @@ const Timetable = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={`space-y-6 ${isDark ? 'text-slate-50' : 'text-slate-900'}`}>
-        {/* Timer card */}
         <TimeTrackingCountdown
           tasks={entries}
           onSaveTimeEntry={handleSaveTimeEntry}
         />
 
-        {/* Timetable card */}
         <div className={outerCardClass}>
           <div className={innerCardClass}>
-            {/* Header */}
             <div
               className={`flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3 ${
                 isDark ? 'border-slate-800/80' : 'border-slate-200'
@@ -531,7 +519,6 @@ const Timetable = () => {
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                {/* Weekends toggle */}
                 <button
                   type="button"
                   onClick={() => setShowWeekends((prev) => !prev)}
@@ -580,7 +567,6 @@ const Timetable = () => {
               </div>
             </div>
 
-            {/* Grid */}
             <div className="px-4 pb-4 pt-3">
               <div
                 className={`overflow-x-auto scrollbar-thin ${
@@ -589,7 +575,6 @@ const Timetable = () => {
                     : 'scrollbar-thumb-slate-300 scrollbar-track-slate-100'
                 }`}
               >
-                {/* Header row: days */}
                 <div
                   className={`grid border-b text-xs ${
                     isDark
@@ -647,7 +632,6 @@ const Timetable = () => {
                   })}
                 </div>
 
-                {/* Hours + cells */}
                 <div className="grid text-[11px]" style={gridTemplate}>
                   {hours.map((hour) => (
                     <React.Fragment key={hour}>
@@ -687,7 +671,6 @@ const Timetable = () => {
           </div>
         </div>
 
-        {/* Modal form */}
         {showForm && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
             <div
